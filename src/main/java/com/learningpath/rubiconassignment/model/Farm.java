@@ -1,21 +1,22 @@
 package com.learningpath.rubiconassignment.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
+@Table(name = "farm")
 public class Farm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String OwnerName;
-    @Column(unique = true)
+    @Column(name = "owner_name")
+    private String ownerName;
+    @Column(name = "farm_id", unique = true)
     private String farmId;
+    @Column(name = "farm_address")
     private String farmAddress;
-    @OneToMany
-    @JoinTable(name = "farm_orderMapping",joinColumns =@JoinColumn(name = "farmId"),inverseJoinColumns = @JoinColumn(name="id"))
-    private Set<WaterOrder> waterOrders;
+    // Remove mapping for now to avoid join issues
+    // private Set<WaterOrder> waterOrders;
 
     public Long getId() {
         return id;
@@ -26,11 +27,11 @@ public class Farm {
     }
 
     public String getOwnerName() {
-        return OwnerName;
+        return ownerName;
     }
 
     public void setOwnerName(String ownerName) {
-        OwnerName = ownerName;
+        this.ownerName = ownerName;
     }
 
     public String getFarmId() {
@@ -49,11 +50,4 @@ public class Farm {
         this.farmAddress = farmAddress;
     }
 
-    public Set<WaterOrder> getWaterOrders() {
-        return waterOrders;
-    }
-
-    public void setWaterOrders(Set<WaterOrder> waterOrders) {
-        this.waterOrders = waterOrders;
-    }
 }
